@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пельменный Дом | Пинск, ул. Днепровской флотилии 35</title>
+    <style>
+        /* --- Общие стили --- */
+        :root {
+            --primary-brown: #5d4037;
+            --accent-orange: #d84315;
+            --bg-paper: #fdfbf7;
+            --text-dark: #2c1e16;
+            --border-light: #e0dcd3;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+        
+        h1, h2, h3, h4 {
+            font-family: 'Arial', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* --- Шапка --- */
+        header {
+            background-color: #fff;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--border-light);
+        }
+        .logo { font-size: 28px; font-weight: bold; color: var(--primary-brown); letter-spacing: 3px; }
+        .contact-info { font-size: 15px; color: #555; text-align: right; line-height: 1.6; }
+
+        /* --- Секция Меню --- */
+        .menu-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        
+        .menu-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-brown);
+            margin-bottom: 50px;
+            border-bottom: 3px solid var(--accent-orange);
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; }
+        
+        .menu-category {
+            margin-bottom: 30px;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            border: 1px solid var(--border-light);
+        }
+
+        .menu-category h3 { 
+            border-bottom: 2px solid var(--accent-orange); 
+            padding-bottom: 10px; 
+            color: var(--primary-brown); 
+            font-size: 1.3rem;
+            margin-top: 0;
+        }
+        
+        /* Стили для позиций */
+        .menu-item { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: baseline;
+            margin-bottom: 12px; 
+            border-bottom: 1px dashed #e0e0e0; 
+            padding-bottom: 5px; 
+            font-size: 15px;
+        }
+        .menu-item:last-child { border-bottom: none; }
+        
+        .item-name { max-width: 70%; }
+        .item-weight { font-size: 0.85em; color: #888; font-weight: normal; margin-left: 5px; }
+        
+        .price-col {
+            text-align: right;
+            font-weight: bold;
+            color: var(--accent-orange);
+            white-space: nowrap;
+        }
+        
+        /* Для сложных позиций с несколькими ценами */
+        .price-multi { display: flex; gap: 15px; font-size: 0.9em; }
+        .price-multi span { min-width: 25px; text-align: right; }
+
+        .badge-new {
+            background-color: #e53935;
+            color: white;
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: bold;
+        }
+
+        /* Стили для соусов и напитков (более компактные) */
+        .compact-list .menu-item { margin-bottom: 8px; font-size: 14px; }
+        .compact-list .item-name { max-width: 80%; }
+
+        /* --- О нас --- */
+        .about-section { background-color: #f4f1ea; padding: 60px 20px; text-align: center; border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light); }
+        .about-content { max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.1rem; }
+
+        /* --- Контакты --- */
+        .contacts-section { 
+            padding: 60px 20px; 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            background-color: #fff;
+            gap: 50px; 
+        }
+        .contact-block { margin: 20px; min-width: 250px; text-align: center; }
+        .contact-block h3 { color: var(--primary-brown); margin-bottom: 15px; border-bottom: 1px solid var(--border-light); padding-bottom: 5px; display: inline-block; }
+        
+        /* --- Футер --- */
+        footer { background-color: var(--primary-brown); color: #fff; text-align: center; padding: 25px; font-size: 14px; }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 900px) {
+            .menu-grid { grid-template-columns: 1fr; gap: 20px; }
+            header { flex-direction: column; gap: 15px; padding: 20px; text-align: center; }
+            .contact-info { text-align: center; }
+            .contacts-section { flex-direction: column; gap: 0; }
+            .menu-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">ПЕЛЬМЕННЫЙ ДОМ</div>
+        <div class="contact-info">
+            г. Пинск, ул. Днепровской флотилии 35<br>
+            +375 (44) 561-62-82
+        </div>
+    </header>
+
+    <!-- Меню -->
+    <section id="menu" class="menu-section">
+        <div style="text-align: center;">
+            <h2 class="menu-title">Наше Меню</h2>
+        </div>
+        
+        <div class="menu-grid">
+            
+            <!-- ЛЕВАЯ КОЛОНКА -->
+            <div>
+                <!-- ПЕЛЬМЕНИ -->
+                <div class="menu-category">
+                    <h3>ПЕЛЬМЕНИ</h3>
+                    
+                    <h4 style="font-size: 1rem; margin: 15px 0 10px; color: #555;">ВАРЕНЫЕ</h4>
+                    <div class="menu-item">
+                        <span class="item-name">Курица <span class="item-weight">200/300/400 гр</span></span>
+                        <div class="price-multi"><span>12</span><span>16</span><span>22</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Свинина <span class="item-weight">200/300/400 гр</span></span>
+                        <div class="price-multi"><span>12</span><span>16</span><span>22</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Говядина <span class="item-weight">200/300/400 гр</span></span>
+                        <div class="price-multi"><span>14</span><span>19</span><span>26</span></div>
+                    </div>
+
+                    <h4 style="font-size: 1rem; margin: 20px 0 10px; color: #555;">С КУРИНЫМ БУЛЬОНОМ И ЗЕЛЕНЬЮ</h4>
+                    <div class="menu-item">
+                        <span class="item-name">Курица <span class="item-weight">(200г пельменей + 150г бульона)</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Свинина</span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Говядина</span>
+                        <span class="price-col">16</span>
+                    </div>
+
+                    <h4 style="font-size: 1rem; margin: 20px 0 10px; color: #555;">ЖАРЕНЫЕ</h4>
+                    <div class="menu-item">
+                        <span class="item-name">На сковороде (свинина или курица) <span class="item-weight">300 гр</span></span>
+                        <span class="price-col">20</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Во фритюре (свинина или курица) <span class="item-weight">300 гр</span></span>
+                        <span class="price-col">20</span>
+                    </div>
+                </div>
+
+                <!-- ЧЕБУРЕКИ И ДРАНИКИ -->
+                <div class="menu-category">
+                    <h3>ЧЕБУРЕКИ И ДРАНИКИ</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Чебуреки классические с говядиной и чесночным соусом <span class="item-weight">200 гр (2 шт)</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Драники: Медальоны из картофеля со сметаной <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">13 <span class="badge-new">NEW</span></span>
+                    </div>
+                </div>
+
+                <!-- ЗАКУСКИ -->
+                <div class="menu-category">
+                    <h3>ЗАКУСКИ</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Грудинка по-домашнему с луком</span>
+                        <span class="price-col">10</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Салат Витаминный <span class="item-weight">100 гр</span></span>
+                        <span class="price-col">5</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Соления <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">8</span>
+                    </div>
+                </div>
+
+                <!-- ФРИТЮР -->
+                <div class="menu-category">
+                    <h3>ФРИТЮР</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Картофель фри <span class="item-weight">150 гр</span></span>
+                        <span class="price-col">7</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Луковые кольца <span class="item-weight">150 гр</span></span>
+                        <span class="price-col">8</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Нагетсы фри <span class="item-weight">150 гр</span></span>
+                        <span class="price-col">10</span>
+                    </div>
+                    <div class="menu-item" style="border-top: 2px solid var(--border-light); margin-top: 10px; padding-top: 10px;">
+                        <span class="item-name">ТАРЕЛКА ФРИ (картофель, пельмени, нагетсы/луковые кольца) + 3 соуса <span class="item-weight">450/75 гр</span></span>
+                        <span class="price-col">27/28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ПРАВАЯ КОЛОНКА -->
+            <div>
+                <!-- ВАРЕНИКИ -->
+                <div class="menu-category">
+                    <h3>ВАРЕНИКИ</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Ленивые с творогом <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">10</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">С капустой <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Картошка с лучком <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Картошка с грибами <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">16</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">С вишней <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">18</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">С клубникой и черникой <span class="item-weight">250 гр</span></span>
+                        <span class="price-col">18</span>
+                    </div>
+                </div>
+
+                <!-- БЛИНЧИКИ -->
+                <div class="menu-category">
+                    <h3>БЛИНЧИКИ</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Без начинки с джемом <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">7</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">С творогом + джем на выбор <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">12</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">С мясным фаршем <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Ветчина с сыром <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Курица с грибами <span class="item-weight">200 гр</span></span>
+                        <span class="price-col">15 <span class="badge-new">NEW</span></span>
+                    </div>
+                </div>
+
+                <!-- СЫРНИКИ И ДЕСЕРТЫ -->
+                <div class="menu-category">
+                    <h3>СЫРНИКИ И ДЕСЕРТЫ</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Сырники с творогом и сметанкой <span class="item-weight">200/50 гр</span></span>
+                        <span class="price-col">14</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Шарлотка с яблоками</span>
+                        <span class="price-col">5</span>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Хлебная тарелка</span>
+                        <span class="price-col">1</span>
+                    </div>
+                </div>
+
+                <!-- НАПИТКИ (ЧАЙ) -->
+                <div class="menu-category">
+                    <h3>ЧАЙ ALTHAUS (Германия)</h3>
+                    <div class="menu-item">
+                        <span class="item-name">Душистая мята (Smooth Mint)</span>
+                        <div class="price-multi"><span>-</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Ягодный (Red Fruit Flash)</span>
+                        <div class="price-multi"><span>-</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Ромашка (Fancy Chamomile)</span>
+                        <div class="price-multi"><span>3</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Перечная мята (Pure Peppermint)</span>
+                        <div class="price-multi"><span>3</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Лесные ягоды (Wild Berries)</span>
+                        <div class="price-multi"><span>3</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Молочный Улун (Milk Oolong)</span>
+                        <div class="price-multi"><span>-</span><span>8</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Зеленая сенча (Grün Matinee)</span>
+                        <div class="price-multi"><span>3</span><span>6</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <span class="item-name">Чёрный (English Breakfast)</span>
+                        <div class="price-multi"><span>3</span><span>6</span></div>
+                    </div>
+                </div>
+
+                <!-- НЕЧАЙНЫЙ ЧАЙ И НАПИТКИ -->
+                <div class="menu-category compact-list">
+                    <h3>НЕЧАЙНЫЙ ЧАЙ</h3>
+                    <div class="menu-item"><span class="item-name">Облепиха, имбирь, мед <span class="item-weight">500/800 мл</span></span> <span class="price-col">10 / 14</span></div>
+                    <div class="menu-item"><span class="item-name">Смородина, чабрец, мята</span> <span class="price-col">10 / 14</span></div>
+                    <div class="menu-item"><span class="item-name">Лимон, имбирь, мед</span> <span class="price-col">10 / 14</span></div>
+                    <div class="menu-item"><span class="item-name">Клюква и можжевельник</span> <span class="price-col">10 / 14</span></div>
+                    <div class="menu-item"><span class="item-name">Малина и перечная мята</span> <span class="price-col">10 / 14</span></div>
+
+                    <h3 style="margin-top: 25px;">НАПИТКИ</h3>
+                    <div class="menu-item"><span class="item-name">КВАС разливной <span class="item-weight">500 мл</span></span> <span class="price-col">4</span></div>
+                    <div class="menu-item"><span class="item-name">Морс Облепиховый <span class="item-weight">250 мл</span></span> <span class="price-col">5</span></div>
+                    <div class="menu-item"><span class="item-name">Морс Брусничный <span class="item-weight">250 мл</span></span> <span class="price-col">5</span></div>
+                    <div class="menu-item"><span class="item-name">Фанта, Кола, Спрайт <span class="item-weight">500 мл</span></span> <span class="price-col">3.5</span></div>
+                    <div class="menu-item"><span class="item-name">Соки в ассортименте <span class="item-weight">200 мл</span></span> <span class="price-col">2.5</span></div>
+                    <div class="menu-item"><span class="item-name">Вода без газа <span class="item-weight">500 мл</span></span> <span class="price-col">2.5</span></div>
+                    <div class="menu-item"><span class="item-name">Вода газированная <span class="item-weight">500 мл</span></span> <span class="price-col">2.5</span></div>
+                </div>
+
+                <!-- АЛКОГОЛЬ И СОУСЫ -->
+                <div class="menu-category compact-list">
+                    <h3>ПИВО И ГЛИНТВЕЙН</h3>
+                    <div class="menu-item"><span class="item-name">Аливария Золотое <span class="item-weight">300/500 мл</span></span> <span class="price-col">4.5 / 6</span></div>
+                    <div class="menu-item"><span class="item-name">Аливария Белое Золото <span class="item-weight">300/500 мл</span></span> <span class="price-col">4.5 / 6</span></div>
+                    <div class="menu-item"><span class="item-name">Темное (бут.)</span> <span class="price-col">6</span></div>
+                    <div class="menu-item"><span class="item-name">Пшеничное (бут.)</span> <span class="price-col">6</span></div>
+                    <div class="menu-item"><span class="item-name">Безалко (бут.)</span> <span class="price-col">5</span></div>
+                    <div class="menu-item" style="margin-top: 5px;"><span class="item-name">Grimbergen Blanche <span class="item-weight">300/500 мл</span></span> <span class="price-col">9 / 12</span></div>
+                    <div class="menu-item"><span class="item-name">ГЛИНТВЕЙН (красное вино, вишневый сок, специи) <span class="item-weight">200 мл</span></span> <span class="price-col">10</span></div>
+
+                    <h3 style="margin-top: 25px;">СОУСЫ</h3>
+                    <div class="menu-item"><span class="item-name">Сметана <span class="item-weight">50 гр</span></span> <span class="price-col">2</span></div>
+                    <div class="menu-item"><span class="item-name">Кетчуп <span class="item-weight">25 гр</span></span> <span class="price-col">2</span></div>
+                    <div class="menu-item"><span class="item-name">Чесночный, Сырный, Грибной <span class="item-weight">25 гр</span></span> <span class="price-col">2</span></div>
+                    <div class="menu-item"><span class="item-name">Джем (малина, вишня, клубника, черника, клюква)</span> <span class="price-col">2</span></div>
+                    <div class="menu-item"><span class="item-name">Уксус</span> <span class="price-col">1</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- О нас -->
+    <section class="about-section">
+        <div class="about-content">
+            <h2>О НАС</h2>
+            <p>«Пельменный Дом» в Пинске — это место, где традиции домашней кухни встречаются с гостеприимством. Мы гордимся тем, что лепим пельмени вручную, используя только свежие и качественные ингредиенты.</p>
+            <p>Наши драники, чебуреки и вареники готовятся с любовью, чтобы каждый гость почувствовал себя как дома. Приходите всей семьей или с друзьями, чтобы насладиться вкусом настоящей домашней еды!</p>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section class="contacts-section">
+        <div class="contact-block">
+            <h3>Адрес</h3>
+            <p>г. Пинск, ул. Днепровской флотилии, 35</p>
+        </div>
+        <div class="contact-block">
+            <h3>Телефон</h3>
+            <p>+375 (44) 561-62-82</p>
+        </div>
+        <div class="contact-block">
+            <h3>Время работы</h3>
+            <p>10:00 - 20:00 (без выходных)</p>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2026 Пельменный Дом. Все права защищены.</p>
+    </footer>
+
+</body>
+</html>
